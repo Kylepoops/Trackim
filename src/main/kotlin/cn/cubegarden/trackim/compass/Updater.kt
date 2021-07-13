@@ -49,10 +49,14 @@ object Updater {
 
 
                         val location = getRandom(tracker, getLocation(trackerLoc, trackeeLoc))
-                        if (Config.maxDistance != -1 && trackerLoc.distance(location) > Config.maxDistance) {
-                            tracker.sendActionBar(Config.lostActionBar)
-                            invalid(tracker.inventory, trackee.name)
-                            return
+                        try {
+                            if (Config.maxDistance != -1 && trackerLoc.distance(location) > Config.maxDistance) {
+                                tracker.sendActionBar(Config.lostActionBar)
+                                invalid(tracker.inventory, trackee.name)
+                                return
+                            }
+                        } catch (ignored: IllegalArgumentException) {
+                            // 跨世界距离计算有bug,等待修复
                         }
                         updateActionBar(tracker, trackee.name)
                         for (itemEntry in tracker.inventory.all(Material.COMPASS)) {
