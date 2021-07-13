@@ -6,12 +6,9 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.World.Environment.THE_END
-import org.bukkit.World.Environment.NETHER
-import org.bukkit.World.Environment.NORMAL
 import org.bukkit.Material
+import org.bukkit.World.Environment.*
 import org.bukkit.entity.Player
-import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.PlayerInventory
 import org.bukkit.inventory.meta.CompassMeta
