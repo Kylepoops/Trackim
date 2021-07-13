@@ -73,6 +73,24 @@ object Updater {
                 }
             }
         }.runTaskTimer(Main.INSTANCE, 600, 20)
+
+
+        object : BukkitRunnable() {
+            override fun run() {
+                for (tracker in trackMap.keys) {
+                    if ((!deceptionSet.contains(tracker)) && Math.random() in 0.94..0.95) {
+                        deceptionSet.add(tracker)
+                        Bukkit.getLogger().info(Config.prefix + "玩家${tracker.name}已加入干扰列表")
+                        object : BukkitRunnable(){
+                            override fun run() {
+                                deceptionSet.remove(tracker)
+                                Bukkit.getLogger().info(Config.prefix + "玩家${tracker.name}已从干扰列表移除")
+                            }
+                        }.runTaskLater(Main.INSTANCE, 3600)
+                    }
+                }
+            }
+        }.runTaskTimer(Main.INSTANCE, 600, 12000)
     }
 
     fun getLocation(tracker: Location, target: Location): @NotNull Location {
@@ -103,16 +121,6 @@ object Updater {
     }
 
     fun getRandom(tracker: Player, location: Location): Location {
-        if ((!deceptionSet.contains(tracker)) && Math.random() < 0.01) {
-            deceptionSet.add(tracker)
-            Bukkit.getLogger().info(Config.prefix + "玩家${tracker.name}已加入干扰列表")
-            object : BukkitRunnable(){
-                override fun run() {
-                    deceptionSet.remove(tracker)
-                    Bukkit.getLogger().info(Config.prefix + "玩家${tracker.name}已从干扰列表移除")
-                }
-            }.runTaskLater(Main.INSTANCE, 3600)
-        }
 
         if (deceptionSet.contains(tracker)) {
             location.x *= Math.random()
