@@ -11,7 +11,6 @@ import org.bukkit.plugin.java.JavaPlugin
 class Main: JavaPlugin() {
 
     override fun onEnable() {
-        logger.info("已成功加载")
 
         INSTANCE = getPlugin(Main::class.java)
 
@@ -23,6 +22,7 @@ class Main: JavaPlugin() {
 
         Updater.start()
 
+        logger.info("已成功加载")
     }
 
     override fun onDisable() {
