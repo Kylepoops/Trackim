@@ -11,7 +11,9 @@ import org.bukkit.World.Environment.NETHER
 import org.bukkit.World.Environment.NORMAL
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.PlayerInventory
 import org.bukkit.inventory.meta.CompassMeta
 import org.bukkit.scheduler.BukkitRunnable
 import org.jetbrains.annotations.NotNull
@@ -28,7 +30,7 @@ object Updater {
                     val tracker = entry.key
                     val trackee = entry.value
 
-                    if (tracker.isOnline && trackee.isOnline) {
+                    if (trackee.isOnline) {
 
                         if (!tracker.inventory.contains(Material.COMPASS)) return
 
@@ -42,17 +44,15 @@ object Updater {
                             (trackerEnv == THE_END ||
                                     trackeeEnv == THE_END)
                             && trackerEnv != trackeeEnv
-                        ) return
+                        ) {
+                            tracker.sendActionBar(Config.lostActionBar)
+                            invalid(tracker.inventory, trackee.name)
+                            return
+                        }
 
                         if (Config.maxDistance != -1 && trackerLoc.distance(trackeeLoc) > Config.maxDistance) {
                             tracker.sendActionBar(Config.lostActionBar)
-                            for (itemEntry in tracker.inventory.all(Material.COMPASS)) {
-                                val compass = itemEntry.value
-
-                                val meta = compass.itemMeta
-                                meta.displayName(Component.text("已失效的${trackee.name}跟踪器", NamedTextColor.GRAY))
-                                compass.itemMeta = meta
-                            }
+                            invalid(tracker.inventory, trackee.name)
                             return
                         }
 
@@ -69,6 +69,9 @@ object Updater {
                             compass.itemMeta = meta
                         }
 
+                    } else {
+                        tracker.sendActionBar(Config.lostActionBar)
+                        invalid(tracker.inventory, trackee.name)
                     }
                 }
             }
@@ -129,5 +132,16 @@ object Updater {
                 itemStack.itemMeta = ItemStack(Material.COMPASS).itemMeta
             }
         }
+    }
+
+    fun invalid(inventory: PlayerInventory, name: String) {
+        for (itemEntry in inventory.all(Material.COMPASS)) {
+            val compass = itemEntry.value
+
+            val meta = compass.itemMeta
+            meta.displayName(Component.text("已失效的${name}跟踪器", NamedTextColor.GRAY))
+            compass.itemMeta = meta
+        }
+        return
     }
 }
