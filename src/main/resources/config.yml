@@ -1,6 +1,6 @@
 max-distance: 3000
 #以下参数可使用颜色代码
-prefix: [Trackim]
+prefix: "[Trackim] "
 tracking-actionbar: 你正在追踪%player%
 lost-actionbar: 玩家正在跟踪范围之外
 start-tracking: 正在追踪%player%
