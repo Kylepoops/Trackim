@@ -89,7 +89,7 @@ object Updater {
     }
 
     fun getRandom(tracker: Player, location: Location): Location {
-        if ((!deceptionSet.contains(tracker)) && Math.random() < 0.05) {
+        if ((!deceptionSet.contains(tracker)) && Math.random() < 0.01) {
             deceptionSet.add(tracker)
             Bukkit.getLogger().info(Config.prefix + "玩家${tracker.name}已加入干扰列表")
             object : BukkitRunnable(){

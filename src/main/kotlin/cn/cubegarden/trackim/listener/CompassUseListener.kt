@@ -1,5 +1,6 @@
 package cn.cubegarden.trackim.listener
 
+import cn.cubegarden.trackim.utils.Config
 import cn.cubegarden.trackim.utils.TrackimHolder
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -33,15 +34,10 @@ class CompassUseListener: Listener {
         val inventory = Bukkit.createInventory(
             TrackimHolder(),
             54,
-            Component.text("请选择你要追踪的目标")
-                .color(NamedTextColor.RED)
+            Config.title
         )
 
-        fillWithHead(inventory, Bukkit.getOnlinePlayers(), event.player)
-        inventory.setItem(
-            53,
-            closeItem
-        )
+        initInventory(inventory, event.player)
 
         event.player.openInventory(inventory)
     }
@@ -53,6 +49,7 @@ class CompassUseListener: Listener {
             .map {
                 val head = ItemStack(Material.PLAYER_HEAD, 1)
                 val meta = head.itemMeta as SkullMeta
+                meta.displayName(Component.text(it.name, NamedTextColor.RED))
                 meta.owningPlayer = it
                 head.itemMeta = meta
                 return@map head
@@ -61,5 +58,21 @@ class CompassUseListener: Listener {
             .forEach {
                 inventory.addItem(it)
             }
+    }
+
+    fun initInventory(inventory: Inventory, player: Player) {
+        val max = inventory.maxStackSize
+        for (slot in 0 until max) {
+            if (slot < 7 || (max - slot) < 7 || slot % 7 == 0 || slot % 7 == 1) {
+                inventory.setItem(slot, ItemStack(Material.ORANGE_STAINED_GLASS_PANE))
+            }
+        }
+        fillWithHead(inventory, Bukkit.getOnlinePlayers(), player)
+        inventory.setItem(
+            max - 1,
+            closeItem
+        )
+
+
     }
 }
