@@ -1,5 +1,5 @@
 name: Trackim
 main: cn.cubegarden.trackim.Main
-version: 1.0
+version: 1.0.0-SNAPSHOT
 author: CubeGarden
 api-version: 1.16
