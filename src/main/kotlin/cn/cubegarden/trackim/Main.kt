@@ -11,7 +11,6 @@ import org.bukkit.plugin.java.JavaPlugin
 class Main: JavaPlugin() {
 
     override fun onEnable() {
-
         INSTANCE = getPlugin(Main::class.java)
 
         Config.load()
