@@ -3,5 +3,3 @@ main: cn.cubegarden.trackim.Main
 version: 1.0
 author: CubeGarden
 api-version: 1.16
-libraries:
-  - org.jetbrains.kotlin:kotlin-stdlib:1.5.10
