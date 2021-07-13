@@ -10,11 +10,9 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Main: JavaPlugin() {
 
-    override fun onLoad() {
-        logger.info("loaded")
-    }
-
     override fun onEnable() {
+        logger.info("已成功加载")
+
         INSTANCE = getPlugin(Main::class.java)
 
         Config.load()
@@ -28,7 +26,7 @@ class Main: JavaPlugin() {
     }
 
     override fun onDisable() {
-        logger.info("disabled")
+        logger.info("已成功卸载")
     }
 
     companion object {
