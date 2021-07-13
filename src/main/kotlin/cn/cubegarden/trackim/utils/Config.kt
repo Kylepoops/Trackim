@@ -16,7 +16,7 @@ object Config {
 
     fun load() {
         Main.INSTANCE.saveDefaultConfig()
-        prefix = config.getStringColored("prefix")?: "[Trackim]"
+        prefix = (config.getStringColored("prefix")?: "[Trackim]") + " "
         trackingActionbar = prefix + (config.getStringColored("tracking-actionbar")?: "你正在追踪%player%")
         maxDistance = config.getInt("max-distance")
         startTracking = prefix + (config.getStringColored("start-tracking")?: "正在追踪%player%")
