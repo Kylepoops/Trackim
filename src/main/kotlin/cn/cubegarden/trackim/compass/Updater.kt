@@ -86,7 +86,7 @@ object Updater {
         if (trackeeEnv == NORMAL &&
             trackeeEnv == NETHER
         ) {
-            target.multiply(8)
+            target.multiply(8.0)
             target.world = tracker.world
         } else if (trackerEnv == NETHER &&
             trackeeEnv == NORMAL
