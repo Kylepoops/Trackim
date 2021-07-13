@@ -1,0 +1,6 @@
+prefix: [Trackim]
+actionbar: 你正在追踪%player%
+max-distance: 3000
+start-tracking: 正在追踪%player%
+stop-tracking: 已停止追踪%player%
+no-tracking: 你不在追踪任何玩家
