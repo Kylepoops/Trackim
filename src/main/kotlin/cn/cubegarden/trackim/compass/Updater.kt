@@ -50,13 +50,13 @@ object Updater {
                             return
                         }
 
-                        if (Config.maxDistance != -1 && trackerLoc.distance(trackeeLoc) > Config.maxDistance) {
+
+                        val location = getRandom(tracker, getLocation(trackerLoc, trackeeLoc))
+                        if (Config.maxDistance != -1 && trackerLoc.distance(location) > Config.maxDistance) {
                             tracker.sendActionBar(Config.lostActionBar)
                             invalid(tracker.inventory, trackee.name)
                             return
                         }
-
-                        val location = getRandom(tracker, getLocation(trackerLoc, trackeeLoc))
                         updateActionBar(tracker, trackee.name)
                         for (itemEntry in tracker.inventory.all(Material.COMPASS)) {
                             val compass = itemEntry.value
