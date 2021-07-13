@@ -1,5 +1,6 @@
 prefix: [Trackim]
-actionbar: 你正在追踪%player%
+tracking-actionbar: 你正在追踪%player%
+lost-actionbar: 玩家正在跟踪范围之外
 max-distance: 3000
 start-tracking: 正在追踪%player%
 stop-tracking: 已停止追踪%player%

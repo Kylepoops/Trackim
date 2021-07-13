@@ -37,7 +37,7 @@ class CompassUseListener: Listener {
             Config.title
         )
 
-        initInventory(inventory, event.player)
+        initInventory(inventory, event.player, 54)
 
         event.player.openInventory(inventory)
     }
@@ -60,10 +60,9 @@ class CompassUseListener: Listener {
             }
     }
 
-    fun initInventory(inventory: Inventory, player: Player) {
-        val max = inventory.maxStackSize
+    fun initInventory(inventory: Inventory, player: Player, max: Int) {
         for (slot in 0 until max) {
-            if (slot < 7 || (max - slot) < 7 || slot % 7 == 0 || slot % 7 == 1) {
+            if (slot < 9 || (max - slot) < 9 || slot % 9 == 0 || slot % 9 == 8) {
                 inventory.setItem(slot, ItemStack(Material.ORANGE_STAINED_GLASS_PANE))
             }
         }

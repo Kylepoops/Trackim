@@ -1,5 +1,6 @@
 package cn.cubegarden.trackim.listener
 
+import cn.cubegarden.trackim.compass.Updater
 import cn.cubegarden.trackim.compass.Updater.trackMap
 import cn.cubegarden.trackim.utils.Config
 import cn.cubegarden.trackim.utils.TrackimHolder
@@ -42,7 +43,7 @@ class InventoryListener: Listener {
             event.inventory.close()
             return
         } else if (item?.type == Material.BARRIER) {
-            restoreCompass(event.whoClicked as Player)
+            Updater.restoreCompass(event.whoClicked as Player)
             if (trackMap.contains(event.whoClicked)) {
                 event.inventory.close()
                 event.whoClicked.sendMessage(
@@ -56,14 +57,6 @@ class InventoryListener: Listener {
             } else {
                 event.inventory.close()
                 event.whoClicked.sendMessage(Config.noTracking)
-            }
-        }
-    }
-
-    fun restoreCompass(player: Player) {
-        for (itemStack in player.inventory) {
-            if (itemStack?.type == Material.COMPASS) {
-                itemStack.itemMeta = ItemStack(Material.COMPASS).itemMeta
             }
         }
     }

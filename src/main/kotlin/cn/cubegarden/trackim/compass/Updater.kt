@@ -2,6 +2,8 @@ package cn.cubegarden.trackim.compass
 
 import cn.cubegarden.trackim.Main
 import cn.cubegarden.trackim.utils.Config
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.World.Environment.THE_END
@@ -9,6 +11,7 @@ import org.bukkit.World.Environment.NETHER
 import org.bukkit.World.Environment.NORMAL
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.CompassMeta
 import org.bukkit.scheduler.BukkitRunnable
 import org.jetbrains.annotations.NotNull
@@ -41,7 +44,11 @@ object Updater {
                             && trackerEnv != trackeeEnv
                         ) return
 
-                        if (Config.maxDistance != -1 && trackerLoc.distance(trackeeLoc) > Config.maxDistance) return
+                        if (Config.maxDistance != -1 && trackerLoc.distance(trackeeLoc) > Config.maxDistance) {
+                            tracker.sendActionBar(Config.lostActionBar)
+                            restoreCompass(tracker)
+                            return
+                        }
 
                         val location = getRandom(tracker, getLocation(trackerLoc, trackeeLoc))
                         updateActionBar(tracker, trackee.name)
@@ -51,6 +58,7 @@ object Updater {
                             val meta = compass.itemMeta as CompassMeta
                             meta.isLodestoneTracked = false
                             meta.lodestone = location
+                            meta.displayName(Component.text("${trackee.name}的跟踪器", NamedTextColor.GOLD))
 
                             compass.itemMeta = meta
                         }
@@ -83,7 +91,7 @@ object Updater {
     }
 
     fun updateActionBar(tracker: Player, playerName: String) {
-        val message = Config.actionbar
+        val message = Config.trackingActionbar
             .replace("%player%", playerName)
         tracker.sendActionBar(message)
     }
@@ -107,5 +115,13 @@ object Updater {
 
         return location
 
+    }
+
+    fun restoreCompass(player: Player) {
+        for (itemStack in player.inventory) {
+            if (itemStack?.type == Material.COMPASS) {
+                itemStack.itemMeta = ItemStack(Material.COMPASS).itemMeta
+            }
+        }
     }
 }
