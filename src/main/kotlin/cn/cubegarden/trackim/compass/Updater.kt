@@ -46,7 +46,13 @@ object Updater {
 
                         if (Config.maxDistance != -1 && trackerLoc.distance(trackeeLoc) > Config.maxDistance) {
                             tracker.sendActionBar(Config.lostActionBar)
-                            restoreCompass(tracker)
+                            for (itemEntry in tracker.inventory.all(Material.COMPASS)) {
+                                val compass = itemEntry.value
+
+                                val meta = compass.itemMeta
+                                meta.displayName(Component.text("已失效的${trackee.name}跟踪器", NamedTextColor.GRAY))
+                                compass.itemMeta = meta
+                            }
                             return
                         }
 
