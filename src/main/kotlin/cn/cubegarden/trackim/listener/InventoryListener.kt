@@ -20,7 +20,6 @@ class InventoryListener: Listener {
         if (event.inventory == null || event.inventory.holder !is TrackimHolder) {
             return
         }
-        Bukkit.getLogger().warning("监听到InventoryCLick")
 
         event.isCancelled = true
         val item = event.currentItem
