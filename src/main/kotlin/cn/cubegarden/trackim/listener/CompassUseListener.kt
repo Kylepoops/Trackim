@@ -44,7 +44,7 @@ class CompassUseListener: Listener {
 
 
     fun fillWithHead(inventory: Inventory, playerList: Collection<Player>, exclude: Player, max: Int) {
-        playerList.toSet()
+        playerList.asSequence()
             .filter { it != exclude }
             .map {
                 val head = ItemStack(Material.PLAYER_HEAD, 1)
