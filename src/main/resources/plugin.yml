@@ -8,3 +8,7 @@ permissions:
   trackim.gui:
     description: 指南针打开GUI
     default: true
+
+  trackim.cannottrack:
+    description: 防止被追踪
+    default: false

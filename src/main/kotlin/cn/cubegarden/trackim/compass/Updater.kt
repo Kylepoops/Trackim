@@ -33,6 +33,8 @@ object Updater {
 
                         if (!tracker.inventory.contains(Material.COMPASS)) return
 
+                        if (trackee.hasPermission("trackim.cannottrack")) return
+
 
                         val trackerEnv = tracker.world.environment
                         val trackeeEnv = trackee.world.environment
