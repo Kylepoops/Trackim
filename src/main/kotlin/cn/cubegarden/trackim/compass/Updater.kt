@@ -33,7 +33,11 @@ object Updater {
 
                         if (!tracker.inventory.contains(Material.COMPASS)) return
 
-                        if (trackee.hasPermission("trackim.cannottrack")) return
+                        if (trackee.hasPermission("trackim.cannottrack")) {
+                            tracker.sendPrefixActionBar(Config.lostActionBar)
+                            invalid(tracker.inventory, trackee.name)
+                            return
+                        }
 
 
                         val trackerEnv = tracker.world.environment
