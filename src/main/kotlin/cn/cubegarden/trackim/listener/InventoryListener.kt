@@ -3,6 +3,8 @@ package cn.cubegarden.trackim.listener
 import cn.cubegarden.trackim.compass.Updater
 import cn.cubegarden.trackim.compass.Updater.trackMap
 import cn.cubegarden.trackim.utils.Config
+import cn.cubegarden.trackim.utils.MessageUtils.sendPrefixMessage
+import cn.cubegarden.trackim.utils.MessageUtils.sendReplacedMessage
 import cn.cubegarden.trackim.utils.TrackimHolder
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -29,12 +31,9 @@ class InventoryListener: Listener {
             if (meta.owningPlayer?.isOnline == true) {
                 val target = meta.owningPlayer?.player ?: return
                 trackMap[event.whoClicked as Player] = target
-                event.whoClicked.sendMessage(Config.startTracking.replace(
-                    "%player%",
-                    target.name
-                ))
+                event.whoClicked.sendReplacedMessage(Config.startTracking, target.name)
             } else {
-                event.whoClicked.sendMessage(Config.prefix + "对方不在线")
+                event.whoClicked.sendPrefixMessage("对方不在线")
             }
 
             event.inventory.close()
@@ -43,17 +42,12 @@ class InventoryListener: Listener {
             Updater.restoreCompass(event.whoClicked as Player)
             if (trackMap.contains(event.whoClicked)) {
                 event.inventory.close()
-                event.whoClicked.sendMessage(
-                    Config.stopTracking.replace(
-                        "%player%",
-                        trackMap[event.whoClicked]?.name?: "目标玩家"
-                    )
-                )
+                event.whoClicked.sendReplacedMessage(Config.stopTracking, trackMap[event.whoClicked]!!.name)
                 trackMap.remove(event.whoClicked)
                 event.inventory.close()
             } else {
                 event.inventory.close()
-                event.whoClicked.sendMessage(Config.noTracking)
+                event.whoClicked.sendPrefixMessage(Config.noTracking)
             }
         }
     }

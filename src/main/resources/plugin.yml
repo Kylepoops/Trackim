@@ -3,3 +3,8 @@ main: cn.cubegarden.trackim.Main
 version: 1.0.0-SNAPSHOT
 author: CubeGarden
 api-version: 1.16
+
+permissions:
+  trackim.gui:
+    description: 指南针打开GUI
+    default: true

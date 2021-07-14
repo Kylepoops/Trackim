@@ -2,6 +2,8 @@ package cn.cubegarden.trackim.compass
 
 import cn.cubegarden.trackim.Main
 import cn.cubegarden.trackim.utils.Config
+import cn.cubegarden.trackim.utils.MessageUtils.sendPrefixActionBar
+import cn.cubegarden.trackim.utils.MessageUtils.sendReplacedActionBar
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
@@ -42,7 +44,7 @@ object Updater {
                                     trackeeEnv == THE_END)
                             && trackerEnv != trackeeEnv
                         ) {
-                            tracker.sendActionBar(Config.lostActionBar)
+                            tracker.sendPrefixActionBar(Config.lostActionBar)
                             invalid(tracker.inventory, trackee.name)
                             return
                         }
@@ -51,7 +53,7 @@ object Updater {
                         val location = getRandom(tracker, getLocation(trackerLoc, trackeeLoc))
                         try {
                             if (Config.maxDistance != -1 && trackerLoc.distance(location) > Config.maxDistance) {
-                                tracker.sendActionBar(Config.lostActionBar)
+                                tracker.sendPrefixActionBar(Config.lostActionBar)
                                 invalid(tracker.inventory, trackee.name)
                                 return
                             }
@@ -71,7 +73,7 @@ object Updater {
                         }
 
                     } else {
-                        tracker.sendActionBar(Config.lostActionBar)
+                        tracker.sendPrefixActionBar(Config.lostActionBar)
                         invalid(tracker.inventory, trackee.name)
                     }
                 }
@@ -119,9 +121,7 @@ object Updater {
     }
 
     fun updateActionBar(tracker: Player, playerName: String) {
-        val message = Config.trackingActionbar
-            .replace("%player%", playerName)
-        tracker.sendActionBar(message)
+        tracker.sendReplacedActionBar(Config.trackingActionbar, playerName)
     }
 
     fun getRandom(tracker: Player, location: Location): Location {

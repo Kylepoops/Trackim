@@ -13,17 +13,19 @@ object Config {
     lateinit var stopTracking: String
     lateinit var noTracking: String
     lateinit var title: String
+    lateinit var noPerm: String
 
     fun load() {
         Main.INSTANCE.saveDefaultConfig()
         prefix = (config.getStringColored("prefix")?: "[Trackim]") + " "
-        trackingActionbar = prefix + (config.getStringColored("tracking-actionbar")?: "你正在追踪%player%")
+        trackingActionbar = config.getStringColored("tracking-actionbar")?: "你正在追踪%player%"
         maxDistance = config.getInt("max-distance")
-        startTracking = prefix + (config.getStringColored("start-tracking")?: "正在追踪%player%")
-        stopTracking = prefix + (config.getStringColored("stop-tracking")?: "已停止追踪%player%")
-        noTracking = prefix + (config.getStringColored("no-tracking")?: "你不在追踪任何玩家")
+        startTracking = config.getStringColored("start-tracking")?: "正在追踪%player%"
+        stopTracking = config.getStringColored("stop-tracking")?: "已停止追踪%player%"
+        noTracking = config.getStringColored("no-tracking")?: "你不在追踪任何玩家"
         title = config.getStringColored("title")?: "请选择你要追踪的玩家"
         lostActionBar = config.getStringColored("lost-actionbar")?: "玩家正在跟踪范围之外，已暂停跟踪"
+        noPerm = config.getStringColored("no-perm")?: "无权限"
 
     }
 

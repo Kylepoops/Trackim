@@ -1,6 +1,7 @@
 package cn.cubegarden.trackim.listener
 
 import cn.cubegarden.trackim.utils.Config
+import cn.cubegarden.trackim.utils.MessageUtils.sendPrefixMessage
 import cn.cubegarden.trackim.utils.TrackimHolder
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -29,6 +30,10 @@ class CompassUseListener: Listener {
     fun onCompassUse(event: PlayerInteractEvent) {
         if (event.item?.type != Material.COMPASS || event.action != Action.RIGHT_CLICK_AIR || !event.player.isSneaking) {
             return
+        }
+
+        if (!event.player.hasPermission("trackim.gui")) {
+            event.player.sendPrefixMessage(Config.noPerm)
         }
 
         val inventory = Bukkit.createInventory(
