@@ -46,3 +46,7 @@ compileTestKotlin {
         useIR = true
     }
 }
+
+shadowJar {
+    relocate 'kotlin', 'libs.kotlin'
+}
