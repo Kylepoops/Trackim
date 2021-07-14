@@ -43,7 +43,7 @@ class CompassUseListener: Listener {
     }
 
 
-    fun fillWithHead(inventory: Inventory, playerList: Collection<Player>, exclude: Player) {
+    fun fillWithHead(inventory: Inventory, playerList: Collection<Player>, exclude: Player, max: Int) {
         playerList.toSet()
             .filter { it != exclude }
             .map {
@@ -54,7 +54,7 @@ class CompassUseListener: Listener {
                 head.itemMeta = meta
                 return@map head
             }
-            .take(53)
+            .take(((max/9)-2)*8)
             .forEach {
                 inventory.addItem(it)
             }
@@ -66,7 +66,7 @@ class CompassUseListener: Listener {
                 inventory.setItem(slot, ItemStack(Material.ORANGE_STAINED_GLASS_PANE))
             }
         }
-        fillWithHead(inventory, Bukkit.getOnlinePlayers(), player)
+        fillWithHead(inventory, Bukkit.getOnlinePlayers(), player, 54)
         inventory.setItem(
             max - 1,
             closeItem
