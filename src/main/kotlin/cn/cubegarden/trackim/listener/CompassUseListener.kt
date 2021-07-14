@@ -34,6 +34,7 @@ class CompassUseListener: Listener {
 
         if (!event.player.hasPermission("trackim.gui")) {
             event.player.sendPrefixMessage(Config.noPerm)
+            return
         }
 
         val inventory = Bukkit.createInventory(
