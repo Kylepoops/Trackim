@@ -8,3 +8,4 @@ stop-tracking: 已停止追踪%player%
 no-tracking: 你不在追踪任何玩家
 title: 请选择你要追踪的玩家
 no-perm: 无权限
+no-compass: 未在你的背包内找到指南针
