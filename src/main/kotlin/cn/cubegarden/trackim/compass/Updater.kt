@@ -24,14 +24,14 @@ object Updater {
     fun start() {
         object : BukkitRunnable() {
             override fun run() {
-                for (entry in trackMap) {
-
-                    val tracker = entry.key
-                    val trackee = entry.value
+                for ((tracker, trackee) in trackMap) {
 
                     if (trackee.isOnline) {
 
-                        if (!tracker.inventory.contains(Material.COMPASS)) return
+                        if (!tracker.inventory.contains(Material.COMPASS)) {
+                            tracker.sendPrefixActionBar(Config.noCompass)
+                            return
+                        }
 
                         if (trackee.hasPermission("trackim.cannottrack")) {
                             tracker.sendPrefixActionBar(Config.lostActionBar)

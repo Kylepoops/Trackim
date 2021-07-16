@@ -14,6 +14,7 @@ object Config {
     lateinit var noTracking: String
     lateinit var title: String
     lateinit var noPerm: String
+    lateinit var noCompass: String
 
     fun load() {
         Main.INSTANCE.saveDefaultConfig()
@@ -26,6 +27,7 @@ object Config {
         title = config.getStringColored("title")?: "请选择你要追踪的玩家"
         lostActionBar = config.getStringColored("lost-actionbar")?: "玩家正在跟踪范围之外，已暂停跟踪"
         noPerm = config.getStringColored("no-perm")?: "无权限"
+        noCompass = config.getStringColored("no-compass")?: "未在你的背包内找到指南针"
 
     }
 
